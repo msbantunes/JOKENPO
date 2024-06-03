@@ -1,0 +1,40 @@
+"""
+Jogo de JOKENPO ou Papel, Pedra e Tesoura
+
+"""
+
+import random
+import requests
+
+def play():
+    user = input("Qual a sua escolha? 'R' para pedra, 'P' para papel, 'S' para tesoura. R: ")
+    if valid(user):
+        return "Não é valido sua escolha!"
+    #função que dá resultado de maneira randomica
+    computer = random.choice(['R', 'P', 'S'])
+    #imprime SEMPRE o que foi jogado pelo PC
+    print("PC Jogou " + computer)
+    i = 1
+    #verifica se foi empate
+    while user == computer:
+        print('É um empate...')
+        return play()
+
+    # Chamada da função para verificar se é vencedor
+    if is_win(user, computer):
+        return 'Você ganhou!'
+    #Caso não dê empate ou ganhador, retorna como perdedor
+    return 'Você perdeu!'
+# função para verificar se é vencedor
+def is_win(player, opponent):
+    # retorne TRUE se o jogador vencer
+    if (player == 'R' and opponent == 'S') or (player == 'S' and opponent == 'P') \
+        or (player == 'P' and opponent == 'R'):
+        return True
+#valida se a resposta é valida "'R', 'P', 'S'"
+def valid(player):
+    if player == 'R' or player == 'S' or player == 'P':
+        return False
+    return True
+#imprime resultado do jogo
+print(play())
